@@ -1,14 +1,11 @@
-﻿using FI.AtividadeEntrevista.BLL;
-using WebAtividadeEntrevista.Models;
+﻿using AutoMapper;
+using Dominio;
+using Dominio.DTO.Cliente;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Threading.Tasks;
-using Dominio;
-using AutoMapper;
-using Dominio.DTO.Cliente;
+using WebAtividadeEntrevista.Models;
 
 namespace WebAtividadeEntrevista.Controllers
 {
@@ -74,34 +71,16 @@ namespace WebAtividadeEntrevista.Controllers
             }
         }
 
-        //[HttpGet]
-        //public async Task<JsonResult> Alterar(long id)
-        //{
-        //    BoCliente bo = new BoCliente();
-        //    Cliente cliente = bo.Consultar(id);
-        //    Models.ClienteModel model = null;
+        [HttpGet]
+        public ActionResult Alterar(long id)
+        {
 
-        //    if (cliente != null)
-        //    {
-        //        model = new ClienteModel()
-        //        {
-        //            Id = cliente.Id,
-        //            CEP = cliente.CEP,
-        //            Cidade = cliente.Cidade,
-        //            Email = cliente.Email,
-        //            Estado = cliente.Estado,
-        //            Logradouro = cliente.Logradouro,
-        //            Nacionalidade = cliente.Nacionalidade,
-        //            Nome = cliente.Nome,
-        //            Sobrenome = cliente.Sobrenome,
-        //            Telefone = cliente.Telefone
-        //        };
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ClienteDTO, ClienteModelView>());
+            var mapper = new Mapper(config);
+            var model =  mapper.Map<ClienteModelView>(_clienteService.Buscar(id));
 
-
-        //    }
-
-        //    return View(model);
-        //}
+            return View(model);
+        }
 
         [HttpPost]
         public JsonResult ClienteList(int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)

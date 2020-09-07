@@ -2,11 +2,8 @@
 using AtividadeEntrevista.Data.Repositorio;
 using AutoMapper;
 using Dominio.DTO.Cliente;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dominio
 {
@@ -48,6 +45,12 @@ namespace Dominio
             _clienteRepositorio.Excluir(mapper.Map<Cliente>(clienteDTO));
         }
 
+        public ClienteDTO Buscar(long id)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Cliente, ClienteDTO>());
+            var mapper = new Mapper(config);
+            return mapper.Map<ClienteDTO>(_clienteRepositorio.Buscar(x => x.Id == id).FirstOrDefault());
+        }
 
     }
 }
