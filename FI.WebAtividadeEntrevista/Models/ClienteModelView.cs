@@ -9,7 +9,7 @@ namespace WebAtividadeEntrevista.Models
     /// <summary>
     /// Classe de Modelo de Cliente
     /// </summary>
-    public class ClienteModel
+    public class ClienteModelView
     {
         public long Id { get; set; }
         
@@ -67,5 +67,9 @@ namespace WebAtividadeEntrevista.Models
         /// </summary>
         public string Telefone { get; set; }
 
-    }    
+        [Required]
+        [MaxLength(14)]
+        public string CPF { get; set; }
+
+    }
 }
